@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { VideoUploader } from './VideoUploader';
 import { VideoPlayer } from './VideoPlayer';
 import { DrawingCanvas } from './DrawingCanvas';
@@ -16,12 +16,24 @@ function App() {
     setResetDrawing((prevState) => !prevState);
   };
 
+  const containerRef = useRef();
+
+  const toggleFullscreen = () => {
+    if (!containerRef.current) return;
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      containerRef.current.requestFullscreen();
+    }
+  };
+
   return (
     <div className="App">
       <VideoUploader onUpload={setVideoFile} />
       {videoFile && (
-        <div style={{ position: 'relative', width: '640px', height: '480px' }}>
-          <VideoPlayer videoFile={videoFile} drawingEnabled={drawingEnabled} />
+        <div ref={containerRef} style={{ position: 'relative', width: '640px', height: '480px' }}>
+          <VideoPlayer videoFile={videoFile} drawingEnabled={drawingEnabled} toggleDrawing={toggleDrawing} resetDrawing={resetDrawingHandler} toggleFullscreen={toggleFullscreen} />
           <DrawingCanvas drawingEnabled={drawingEnabled} resetDrawing={resetDrawing} />
         </div>
       )}
