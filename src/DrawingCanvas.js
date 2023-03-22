@@ -10,8 +10,9 @@ export const DrawingCanvas = ({
 }) => {
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState('red');
-  const isDrawing = useRef(false);
   const [undoneLines, setUndoneLines] = useState([]);
+  const [lineWidth, setLineWidth] = useState(5);
+  const isDrawing = useRef(false);
 
   useEffect(() => {
     setLines([]);
@@ -23,7 +24,7 @@ export const DrawingCanvas = ({
     const pos = stage.getPointerPosition();
     if (eventType === 'mousedown') {
       isDrawing.current = true;
-      setLines([...lines, { points: [pos.x, pos.y], color }]);
+      setLines([...lines, { points: [pos.x, pos.y], color, strokeWidth: lineWidth }]);
     } else if (eventType === 'mousemove' && isDrawing.current) {
       const lastLine = lines[lines.length - 1];
       const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) };
@@ -65,6 +66,18 @@ export const DrawingCanvas = ({
         {colorButtons}
         <button onClick={() => manageLineHistory('undo')} style={{ height: '20px', width: '50px', marginLeft: '5px' }}>Undo</button>
         <button onClick={() => manageLineHistory('redo')} style={{ height: '20px', width: '50px' }}>Redo</button>
+        <div style={{ marginLeft: '5px' }}>
+          <label htmlFor="lineWidth">Pencil size: {lineWidth}</label>
+          <input
+            type="range"
+            id="lineWidth"
+            name="lineWidth"
+            min="1"
+            max="50"
+            value={lineWidth}
+            onChange={(e) => setLineWidth(parseInt(e.target.value))}
+          />
+        </div>
       </div>
       <Stage
         width={opts.width}
@@ -81,7 +94,14 @@ export const DrawingCanvas = ({
       >
         <Layer>
           {lines.map((line, i) => (
-            <Line key={i} points={line.points} stroke={line.color} strokeWidth={5} lineCap="round" lineJoin="round" /> // Update this line
+            <Line
+              key={i}
+              points={line.points}
+              stroke={line.color}
+              strokeWidth={line.strokeWidth}
+              lineCap="round"
+              lineJoin="round"
+            />
           ))}
         </Layer>
       </Stage>
