@@ -36,7 +36,12 @@ export const DrawingCanvas = ({ drawingEnabled, resetDrawing }) => {
     <Stage
       width={640}
       height={480}
-      style={{ position: 'absolute', top: '0', left: '0' }}
+      style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        pointerEvents: drawingEnabled ? 'auto' : 'none',
+      }}
       onMouseDown={handleMouseDown}
       onMousemove={handleMouseMove}
       onMouseup={handleMouseUp}

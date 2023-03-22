@@ -21,7 +21,7 @@ function App() {
       <VideoUploader onUpload={setVideoFile} />
       {videoFile && (
         <div style={{ position: 'relative', width: '640px', height: '480px' }}>
-          <VideoPlayer videoFile={videoFile} />
+          <VideoPlayer videoFile={videoFile} drawingEnabled={drawingEnabled} />
           <DrawingCanvas drawingEnabled={drawingEnabled} resetDrawing={resetDrawing} />
         </div>
       )}
