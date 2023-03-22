@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 
-export const VideoPlayer = ({ videoFile, drawingEnabled, toggleDrawing, resetDrawing, toggleFullscreen }) => {
+export const VideoPlayer = ({ 
+  videoFile, 
+  drawingEnabled, 
+  toggleDrawing, 
+  resetDrawing, 
+  toggleFullscreen,
+  opts,
+ }) => {
   const videoRef = useRef();
 
   useEffect(() => {
@@ -55,8 +62,8 @@ export const VideoPlayer = ({ videoFile, drawingEnabled, toggleDrawing, resetDra
     <video
       ref={videoRef}
       controls={!drawingEnabled}
-      width="640"
-      height="480"
+      width={opts.width}
+      height={opts.height}
       autoPlay
       muted
     />

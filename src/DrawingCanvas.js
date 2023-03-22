@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 
-export const DrawingCanvas = ({ drawingEnabled, resetDrawing }) => {
+export const DrawingCanvas = ({ 
+  drawingEnabled, 
+  resetDrawing,
+  opts,
+ }) => {
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
 
@@ -34,8 +38,8 @@ export const DrawingCanvas = ({ drawingEnabled, resetDrawing }) => {
 
   return (
     <Stage
-      width={640}
-      height={480}
+      width={opts.width}
+      height={opts.height}
       style={{
         position: 'absolute',
         top: '0',
