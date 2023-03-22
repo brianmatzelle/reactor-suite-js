@@ -25,6 +25,15 @@ export const YoutubePlayer = ({
     playerRef.current = event.target;
   };
 
+  // scroll down the page by 25px after the video is loaded
+  const handlePlayerReady = () => {
+    window.scrollBy({
+      top: 25,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   // Use effect to add keyboard event listener for different controls when drawing is enabled
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -79,6 +88,7 @@ export const YoutubePlayer = ({
       videoId={videoId}
       opts={opts}
       onStateChange={handlePlayerStateChange}
+      onReady={handlePlayerReady}
     />
   );
 };

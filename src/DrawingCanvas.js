@@ -66,7 +66,7 @@ export const DrawingCanvas = ({
           display: 'flex',
           flexDirection: 'row',
           position: 'fixed',
-          top: '10px',
+          top: '25px',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: '1000',
@@ -78,7 +78,12 @@ export const DrawingCanvas = ({
         <button onClick={() => manageLineHistory('undo')} style={{ height: '20px', width: '50px', marginLeft: '5px' }}>Undo</button>
         <button onClick={() => manageLineHistory('redo')} style={{ height: '20px', width: '50px' }}>Redo</button>
         <div style={{ marginLeft: '5px' }}>
-          <label htmlFor="lineWidth">Pencil size: {lineWidth}</label>
+          <label 
+            htmlFor="lineWidth" 
+            style={{
+              color: 'white',
+              fontSize: '16px',
+            }}>Pencil size: {lineWidth}</label>
           <input
             type="range"
             id="lineWidth"
