@@ -72,18 +72,52 @@ export const DrawingCanvas = ({
           zIndex: '1000',
         }}
       >
-        <button onClick={toggleDrawing}>{drawingEnabled ? 'Disable Drawing Mode' : 'Enable Drawing Mode'}</button>
-        <button onClick={resetDrawingHandler} style={{ marginRight: '5px' }}>Clear Drawing</button>
+        <button
+          onClick={toggleDrawing}
+          style={{ opacity: 1 }}
+        >
+          {drawingEnabled ? 'Disable Drawing Mode' : 'Enable Drawing Mode'}
+        </button>
+        <button
+          onClick={resetDrawingHandler}
+          style={{ marginRight: '5px', opacity: 1 }}
+        >
+          Clear Drawing
+        </button>
         {colorButtons}
-        <button onClick={() => manageLineHistory('undo')} style={{ height: '20px', width: '50px', marginLeft: '5px' }}>Undo</button>
-        <button onClick={() => manageLineHistory('redo')} style={{ height: '20px', width: '50px' }}>Redo</button>
+        <button
+          onClick={() => manageLineHistory('undo')}
+          style={{
+            height: '20px',
+            width: '50px',
+            marginLeft: '5px',
+            opacity: 1,
+          }}
+        >
+          Undo
+        </button>
+        <button
+          onClick={() => manageLineHistory('redo')}
+          style={{
+            height: '20px',
+            width: '50px',
+            opacity: 1,
+          }}
+        >
+          Redo
+        </button>
         <div style={{ marginLeft: '5px' }}>
-          <label 
-            htmlFor="lineWidth" 
+          <label
+            htmlFor="lineWidth"
             style={{
               color: 'white',
               fontSize: '16px',
-            }}>Pencil size: {lineWidth}</label>
+              fontWeight: 'bold',
+              opacity: 1,
+            }}
+          >
+            Pencil size: {lineWidth}
+          </label>
           <input
             type="range"
             id="lineWidth"
@@ -92,6 +126,7 @@ export const DrawingCanvas = ({
             max="50"
             value={lineWidth}
             onChange={(e) => setLineWidth(parseInt(e.target.value))}
+            style={{ opacity: 1 }}
           />
         </div>
       </div>

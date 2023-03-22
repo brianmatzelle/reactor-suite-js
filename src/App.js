@@ -11,7 +11,7 @@ function App() {
   const [resetDrawing, setResetDrawing] = useState(false);
   const [youtubeLink, setYoutubeLink] = useState(null);
   const containerRef = useRef();
-  const [initialDimensions, setInitialDimensions] = useState({
+  const [initialDimensions] = useState({
     width: window.innerWidth,
     height: ((window.innerWidth) * 9) / 16,
   });
