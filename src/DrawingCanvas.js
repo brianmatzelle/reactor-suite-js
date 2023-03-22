@@ -33,7 +33,7 @@ export const DrawingCanvas = ({
   
     if (eventType === 'mousedown') {
       isDrawing.current = true;
-      setLines([...lines, { points: [pos.x, pos.y], color }]);
+      setLines([...lines, { points: [pos.x, pos.y], color, strokeWidth: lineWidth }]);
     } else if (eventType === 'mousemove' && isDrawing.current) {
       const lastLine = lines[lines.length - 1];
       const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) };
@@ -109,7 +109,7 @@ export const DrawingCanvas = ({
             key={i}
             points={line.points.map((p, index) => (index % 2 === 0 ? p * scalingFactor.x : p * scalingFactor.y))}
             stroke={line.color}
-            strokeWidth={lineWidth}
+            strokeWidth={line.strokeWidth}
             lineCap="round"
             lineJoin="round"
           />

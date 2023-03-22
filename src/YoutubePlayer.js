@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import YouTube from 'react-youtube';
 
+// YoutubePlayer component receives youtubeLink, opts, drawingEnabled, and related handler functions as props
 export const YoutubePlayer = ({ 
   youtubeLink, 
   opts, 
@@ -9,9 +10,11 @@ export const YoutubePlayer = ({
   resetDrawing,
   toggleFullscreen,
  }) => {
+  // Extract the videoId from the youtubeLink
   const videoId = new URL(youtubeLink).searchParams.get('v');
   const playerRef = useRef(null);
 
+  // Function to handle player state changes
   const handlePlayerStateChange = (event) => {
     if (drawingEnabled) {
       // Disable built-in controls when drawing is enabled
@@ -22,12 +25,14 @@ export const YoutubePlayer = ({
     playerRef.current = event.target;
   };
 
+  // Use effect to add keyboard event listener for different controls when drawing is enabled
   useEffect(() => {
     const handleKeyDown = (e) => {
       const player = playerRef.current;
 
       if (!player) return;
 
+      // Define the behavior for different key presses
       if (e.code === 'Space') {
         if (player.getPlayerState() === YouTube.PlayerState.PLAYING) {
           player.pauseVideo();
@@ -68,6 +73,7 @@ export const YoutubePlayer = ({
     };
   }, [drawingEnabled, toggleDrawing, resetDrawing, toggleFullscreen]);
 
+  // Render YouTube component with the given videoId, opts, and the player state change handler
   return (
     <YouTube
       videoId={videoId}

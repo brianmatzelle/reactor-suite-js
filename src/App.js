@@ -5,6 +5,7 @@ import { DrawingCanvas } from './DrawingCanvas';
 import { YoutubePlayer } from './YoutubePlayer';
 
 function App() {
+  // State variables for video file, drawing mode, reset drawing, youtube link, initial dimensions and player options
   const [videoFile, setVideoFile] = useState(null);
   const [drawingEnabled, setDrawingEnabled] = useState(false);
   const [resetDrawing, setResetDrawing] = useState(false);
@@ -16,15 +17,17 @@ function App() {
   });
   const [playerOpts, setPlayerOpts] = useState(initialDimensions);
 
+  // Function to toggle drawing mode on/off
   const toggleDrawing = () => {
     setDrawingEnabled(!drawingEnabled);
   };
 
+  // Function to reset the drawing canvas
   const resetDrawingHandler = () => {
     setResetDrawing((prevState) => !prevState);
   };
 
-
+  // Function to toggle fullscreen mode
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
 
@@ -35,7 +38,7 @@ function App() {
     }
   };
 
-
+  // Effect to update player options when window is resized
   useEffect(() => {
     const updatePlayerOpts = () => {
       setPlayerOpts({
@@ -51,6 +54,7 @@ function App() {
     };
   }, []);
 
+  // Calculate scaling factor for the drawing canvas
   const scalingFactor = {
     x: playerOpts.width / initialDimensions.width,
     y: playerOpts.height / initialDimensions.height,
@@ -58,9 +62,11 @@ function App() {
 
   return (
     <div className="App">
+      {/* Render VideoUploader component to upload a video file or provide a YouTube link */}
       <VideoUploader onUpload={setVideoFile} onYoutubeLink={setYoutubeLink} />
       {(videoFile || youtubeLink) && (
         <div ref={containerRef} style={{ position: 'relative', width: playerOpts.width, height: playerOpts.height }}>
+          {/* Conditionally render VideoPlayer or YoutubePlayer based on the input */}
           {videoFile ? (
             <VideoPlayer
               videoFile={videoFile}
@@ -78,8 +84,9 @@ function App() {
               toggleDrawing={toggleDrawing}
               resetDrawing={resetDrawingHandler}
               toggleFullscreen={toggleFullscreen}
-              />
+            />
           )}
+          {/* Render DrawingCanvas component */}
           <DrawingCanvas 
             drawingEnabled={drawingEnabled} 
             resetDrawing={resetDrawing} 
@@ -87,7 +94,7 @@ function App() {
             toggleDrawing={toggleDrawing}
             resetDrawingHandler={resetDrawingHandler}
             scalingFactor={scalingFactor}
-            />
+          />
         </div>
       )}
     </div>
