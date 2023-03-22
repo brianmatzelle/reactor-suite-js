@@ -1,56 +1,70 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 
-export const DrawingCanvas = ({ 
-  drawingEnabled, 
+export const DrawingCanvas = ({
+  drawingEnabled,
   resetDrawing,
   opts,
- }) => {
+  toggleDrawing,
+  resetDrawingHandler,
+}) => {
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState('red');
   const isDrawing = useRef(false);
+  const [undoneLines, setUndoneLines] = useState([]);
 
   useEffect(() => {
     setLines([]);
   }, [resetDrawing]);
 
-    // Clear the lines state when the resetDrawing prop changes
-    useEffect(() => {
-        setLines([]);
-    }, [resetDrawing]);
-
-  const handleMouseDown = (e) => {
+  const handleDrawEvent = (e, eventType) => {
     if (!drawingEnabled) return;
-    isDrawing.current = true;
-    const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, { points: [pos.x, pos.y], color }]); // Update this line
-  };
-
-  const handleMouseMove = (e) => {
-    if (!drawingEnabled || !isDrawing.current) return;
     const stage = e.target.getStage();
     const pos = stage.getPointerPosition();
-    const lastLine = lines[lines.length - 1];
-    const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) }; // Update this line
-    const newLines = lines.slice(0, lines.length - 1).concat([newLine]);
-    setLines(newLines);
+    if (eventType === 'mousedown') {
+      isDrawing.current = true;
+      setLines([...lines, { points: [pos.x, pos.y], color }]);
+    } else if (eventType === 'mousemove' && isDrawing.current) {
+      const lastLine = lines[lines.length - 1];
+      const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) };
+      setLines(lines.slice(0, -1).concat([newLine]));
+    } else if (eventType === 'mouseup') {
+      isDrawing.current = false;
+    }
   };
 
-  const handleMouseUp = () => {
-    if (!drawingEnabled) return;
-    isDrawing.current = false;
+  const manageLineHistory = (action) => {
+    if (action === 'undo' && lines.length > 0) {
+      setUndoneLines([...undoneLines, lines.pop()]);
+      setLines([...lines]);
+    } else if (action === 'redo' && undoneLines.length > 0) {
+      setLines([...lines, undoneLines.pop()]);
+      setUndoneLines([...undoneLines]);
+    }
   };
+
+  const colors = ['black', 'white', 'red', 'blue', 'green', 'yellow', 'blueviolet'];
+  const colorButtons = colors.map((c) => (
+    <button key={c} onClick={() => setColor(c)} style={{ backgroundColor: c, width: '20px', height: '20px' }}></button>
+  ));
 
   return (
     <>
-      <div style={{ position: 'fixed', top: '10px', left: '50%', transform: 'translateX(-50%)' }}>
-        <button onClick={() => setColor('black')} style={{ backgroundColor: 'black', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('white')} style={{ backgroundColor: 'white', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('red')} style={{ backgroundColor: 'red', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('blue')} style={{ backgroundColor: 'blue', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('green')} style={{ backgroundColor: 'green', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('yellow')} style={{ backgroundColor: 'yellow', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('blueviolet')} style={{ backgroundColor: 'blueviolet', width: '20px', height: '20px' }}></button>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          position: 'fixed',
+          top: '10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <button onClick={toggleDrawing}>{drawingEnabled ? 'Disable Drawing Mode' : 'Enable Drawing Mode'}</button>
+        <button onClick={resetDrawingHandler} style={{ marginRight: '5px' }}>Clear Drawing</button>
+        {colorButtons}
+        <button onClick={() => manageLineHistory('undo')} style={{ height: '20px', width: '50px', marginLeft: '5px' }}>Undo</button>
+        <button onClick={() => manageLineHistory('redo')} style={{ height: '20px', width: '50px' }}>Redo</button>
       </div>
       <Stage
         width={opts.width}
@@ -61,9 +75,9 @@ export const DrawingCanvas = ({
           left: '0',
           pointerEvents: drawingEnabled ? 'auto' : 'none',
         }}
-        onMouseDown={handleMouseDown}
-        onMousemove={handleMouseMove}
-        onMouseup={handleMouseUp}
+        onMouseDown={(e) => handleDrawEvent(e, 'mousedown')}
+        onMousemove={(e) => handleDrawEvent(e, 'mousemove')}
+        onMouseup={(e) => handleDrawEvent(e, 'mouseup')}
       >
         <Layer>
           {lines.map((line, i) => (

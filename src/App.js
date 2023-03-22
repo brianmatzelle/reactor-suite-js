@@ -32,7 +32,7 @@ function App() {
 
   const playerOpts = {
     width: window.innerWidth,
-    height: (window.innerWidth * 9) / 16,
+    height: ((window.innerWidth - 200) * 9) / 16,
   };
 
   return (
@@ -63,11 +63,11 @@ function App() {
             drawingEnabled={drawingEnabled} 
             resetDrawing={resetDrawing} 
             opts={playerOpts}
+            toggleDrawing={toggleDrawing}
+            resetDrawingHandler={resetDrawingHandler}
             />
         </div>
       )}
-      <button onClick={toggleDrawing}>{drawingEnabled ? 'Disable Drawing Mode' : 'Enable Drawing Mode'}</button>
-      <button onClick={resetDrawingHandler}>Clear Drawing</button>
     </div>
   );
 }
