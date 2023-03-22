@@ -7,6 +7,7 @@ function App() {
   const [videoFile, setVideoFile] = useState(null);
   const [drawingEnabled, setDrawingEnabled] = useState(false);
   const [resetDrawing, setResetDrawing] = useState(false);
+  const containerRef = useRef();
 
   const toggleDrawing = () => {
     setDrawingEnabled(!drawingEnabled);
@@ -16,7 +17,6 @@ function App() {
     setResetDrawing((prevState) => !prevState);
   };
 
-  const containerRef = useRef();
 
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
