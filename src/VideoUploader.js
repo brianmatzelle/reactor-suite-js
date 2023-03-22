@@ -24,12 +24,12 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
 
   return (
     <div>
-      <div {...getRootProps()}>
+      {/* <div {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive
           ? 'Drop the video here'
           : 'Drag and drop a video or click to upload'}
-      </div>
+      </div> */}
       <form onSubmit={handleYoutubeLinkSubmit}>
         <input
           type="text"

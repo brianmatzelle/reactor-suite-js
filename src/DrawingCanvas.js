@@ -69,6 +69,7 @@ export const DrawingCanvas = ({
           top: '10px',
           left: '50%',
           transform: 'translateX(-50%)',
+          zIndex: '1000',
         }}
       >
         <button onClick={toggleDrawing}>{drawingEnabled ? 'Disable Drawing Mode' : 'Enable Drawing Mode'}</button>

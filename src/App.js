@@ -12,7 +12,7 @@ function App() {
   const containerRef = useRef();
   const [initialDimensions, setInitialDimensions] = useState({
     width: window.innerWidth,
-    height: ((window.innerWidth - 200) * 9) / 16,
+    height: ((window.innerWidth) * 9) / 16,
   });
   const [playerOpts, setPlayerOpts] = useState(initialDimensions);
 
@@ -40,7 +40,7 @@ function App() {
     const updatePlayerOpts = () => {
       setPlayerOpts({
         width: window.innerWidth,
-        height: ((window.innerWidth - 150) * 9) / 16,
+        height: ((window.innerWidth) * 9) / 16,
       });
     };
 
