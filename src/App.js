@@ -38,7 +38,7 @@ function App() {
         </div>
       )}
       <button onClick={toggleDrawing}>{drawingEnabled ? 'Disable Drawing' : 'Enable Drawing'}</button>
-      <button onClick={resetDrawingHandler}>Reset Drawing</button>
+      <button onClick={resetDrawingHandler}>Clear Drawing</button>
     </div>
   );
 }

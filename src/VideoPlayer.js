@@ -28,12 +28,20 @@ export const VideoPlayer = ({ videoFile, drawingEnabled, toggleDrawing, resetDra
         videoRef.current.currentTime += 5; // Fast-forward by 5 seconds
       } else if (e.code === 'ArrowLeft') {
         videoRef.current.currentTime -= 5; // Rewind by 5 seconds
+      } else if (e.code === 'ArrowUp') {
+        videoRef.current.volume += 0.1; // Increase volume by 10%
+      } else if (e.code === 'ArrowDown') {
+        videoRef.current.volume -= 0.1; // Decrease volume by 10%
       } else if (e.code === 'KeyE') {
         toggleDrawing(); // Toggle drawing mode when "e" is pressed
       } else if (e.code === 'KeyR') {
         resetDrawing(); // Reset drawing when "r" is pressed
       } else if (e.code === 'KeyF') {
         toggleFullscreen(); // Toggle fullscreen when "f" is pressed
+      } else if (e.code === 'KeyK') {
+        videoRef.current.currentTime -= 0.1; // Rewind by 100ms
+      } else if (e.code === 'KeyL') {
+        videoRef.current.currentTime += 0.1; // Fast-forward by 100ms
       }
     };
 
