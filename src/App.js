@@ -31,15 +31,15 @@ function App() {
   };
 
   const playerOpts = {
-    width: '640',
-    height: '480',
+    width: window.innerWidth,
+    height: (window.innerWidth * 9) / 16,
   };
 
   return (
     <div className="App">
       <VideoUploader onUpload={setVideoFile} onYoutubeLink={setYoutubeLink} />
       {(videoFile || youtubeLink) && (
-        <div ref={containerRef} style={{ position: 'relative', width: '640px', height: '480px' }}>
+        <div ref={containerRef} style={{ position: 'relative', width: playerOpts.width, height: playerOpts.height }}>
           {videoFile ? (
             <VideoPlayer
               videoFile={videoFile}

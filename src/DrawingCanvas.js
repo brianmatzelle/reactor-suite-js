@@ -23,7 +23,7 @@ export const DrawingCanvas = ({
     if (!drawingEnabled) return;
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, [pos.x, pos.y]]);
+    setLines([...lines, { points: [pos.x, pos.y], color }]); // Update this line
   };
 
   const handleMouseMove = (e) => {
@@ -31,7 +31,7 @@ export const DrawingCanvas = ({
     const stage = e.target.getStage();
     const pos = stage.getPointerPosition();
     const lastLine = lines[lines.length - 1];
-    const newLine = lastLine.concat([pos.x, pos.y]);
+    const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) }; // Update this line
     const newLines = lines.slice(0, lines.length - 1).concat([newLine]);
     setLines(newLines);
   };
@@ -44,9 +44,13 @@ export const DrawingCanvas = ({
   return (
     <>
       <div style={{ position: 'fixed', top: '10px', left: '50%', transform: 'translateX(-50%)' }}>
+        <button onClick={() => setColor('black')} style={{ backgroundColor: 'black', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('white')} style={{ backgroundColor: 'white', width: '20px', height: '20px' }}></button>
         <button onClick={() => setColor('red')} style={{ backgroundColor: 'red', width: '20px', height: '20px' }}></button>
-        <button onClick={() => setColor('green')} style={{ backgroundColor: 'green', width: '20px', height: '20px' }}></button>
         <button onClick={() => setColor('blue')} style={{ backgroundColor: 'blue', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('green')} style={{ backgroundColor: 'green', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('yellow')} style={{ backgroundColor: 'yellow', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('blueviolet')} style={{ backgroundColor: 'blueviolet', width: '20px', height: '20px' }}></button>
       </div>
       <Stage
         width={opts.width}
@@ -63,7 +67,7 @@ export const DrawingCanvas = ({
       >
         <Layer>
           {lines.map((line, i) => (
-            <Line key={i} points={line} stroke={color} strokeWidth={5} lineCap="round" lineJoin="round" /> // Update this line
+            <Line key={i} points={line.points} stroke={line.color} strokeWidth={5} lineCap="round" lineJoin="round" /> // Update this line
           ))}
         </Layer>
       </Stage>
