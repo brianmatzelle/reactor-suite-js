@@ -7,7 +7,12 @@ export const DrawingCanvas = ({
   opts,
  }) => {
   const [lines, setLines] = useState([]);
+  const [color, setColor] = useState('red');
   const isDrawing = useRef(false);
+
+  useEffect(() => {
+    setLines([]);
+  }, [resetDrawing]);
 
     // Clear the lines state when the resetDrawing prop changes
     useEffect(() => {
@@ -37,24 +42,31 @@ export const DrawingCanvas = ({
   };
 
   return (
-    <Stage
-      width={opts.width}
-      height={opts.height}
-      style={{
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        pointerEvents: drawingEnabled ? 'auto' : 'none',
-      }}
-      onMouseDown={handleMouseDown}
-      onMousemove={handleMouseMove}
-      onMouseup={handleMouseUp}
-    >
-      <Layer>
-        {lines.map((line, i) => (
-          <Line key={i} points={line} stroke="red" strokeWidth={5} lineCap="round" lineJoin="round" />
-        ))}
-      </Layer>
-    </Stage>
+    <>
+      <div style={{ position: 'fixed', top: '10px', left: '50%', transform: 'translateX(-50%)' }}>
+        <button onClick={() => setColor('red')} style={{ backgroundColor: 'red', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('green')} style={{ backgroundColor: 'green', width: '20px', height: '20px' }}></button>
+        <button onClick={() => setColor('blue')} style={{ backgroundColor: 'blue', width: '20px', height: '20px' }}></button>
+      </div>
+      <Stage
+        width={opts.width}
+        height={opts.height}
+        style={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          pointerEvents: drawingEnabled ? 'auto' : 'none',
+        }}
+        onMouseDown={handleMouseDown}
+        onMousemove={handleMouseMove}
+        onMouseup={handleMouseUp}
+      >
+        <Layer>
+          {lines.map((line, i) => (
+            <Line key={i} points={line} stroke={color} strokeWidth={5} lineCap="round" lineJoin="round" /> // Update this line
+          ))}
+        </Layer>
+      </Stage>
+    </>
   );
 };
