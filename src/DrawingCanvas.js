@@ -7,6 +7,7 @@ export const DrawingCanvas = ({
   opts,
   toggleDrawing,
   resetDrawingHandler,
+  scalingFactor,
 }) => {
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState('red');
@@ -18,13 +19,21 @@ export const DrawingCanvas = ({
     setLines([]);
   }, [resetDrawing]);
 
+  const scalePointerPosition = (pos) => {
+    return {
+      x: pos.x / scalingFactor.x,
+      y: pos.y / scalingFactor.y,
+    };
+  };
+
   const handleDrawEvent = (e, eventType) => {
     if (!drawingEnabled) return;
     const stage = e.target.getStage();
-    const pos = stage.getPointerPosition();
+    const pos = scalePointerPosition(stage.getPointerPosition());
+  
     if (eventType === 'mousedown') {
       isDrawing.current = true;
-      setLines([...lines, { points: [pos.x, pos.y], color, strokeWidth: lineWidth }]);
+      setLines([...lines, { points: [pos.x, pos.y], color }]);
     } else if (eventType === 'mousemove' && isDrawing.current) {
       const lastLine = lines[lines.length - 1];
       const newLine = { ...lastLine, points: lastLine.points.concat([pos.x, pos.y]) };
@@ -33,6 +42,7 @@ export const DrawingCanvas = ({
       isDrawing.current = false;
     }
   };
+  
 
   const manageLineHistory = (action) => {
     if (action === 'undo' && lines.length > 0) {
@@ -93,16 +103,16 @@ export const DrawingCanvas = ({
         onMouseup={(e) => handleDrawEvent(e, 'mouseup')}
       >
         <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={line.strokeWidth}
-              lineCap="round"
-              lineJoin="round"
-            />
-          ))}
+        {lines.map((line, i) => (
+          <Line
+            key={i}
+            points={line.points.map((p, index) => (index % 2 === 0 ? p * scalingFactor.x : p * scalingFactor.y))}
+            stroke={line.color}
+            strokeWidth={lineWidth}
+            lineCap="round"
+            lineJoin="round"
+          />
+        ))}
         </Layer>
       </Stage>
     </>

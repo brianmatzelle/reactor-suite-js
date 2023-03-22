@@ -44,7 +44,7 @@ export const YoutubePlayer = ({
         player.setVolume(player.getVolume() - 10);
       } else if (e.code === 'KeyE') {
         toggleDrawing(); // Toggle drawing mode when "e" is pressed
-      } else if (e.code === 'KeyR') {
+      } else if (e.code === 'KeyC') {
         resetDrawing(); // Reset drawing when "r" is pressed
       } else if (e.code === 'KeyF') {
         toggleFullscreen(); // Toggle fullscreen when "f" is pressed

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { VideoUploader } from './VideoUploader';
 import { VideoPlayer } from './VideoPlayer';
 import { DrawingCanvas } from './DrawingCanvas';
@@ -10,6 +10,11 @@ function App() {
   const [resetDrawing, setResetDrawing] = useState(false);
   const [youtubeLink, setYoutubeLink] = useState(null);
   const containerRef = useRef();
+  const [initialDimensions, setInitialDimensions] = useState({
+    width: window.innerWidth,
+    height: ((window.innerWidth - 200) * 9) / 16,
+  });
+  const [playerOpts, setPlayerOpts] = useState(initialDimensions);
 
   const toggleDrawing = () => {
     setDrawingEnabled(!drawingEnabled);
@@ -30,9 +35,25 @@ function App() {
     }
   };
 
-  const playerOpts = {
-    width: window.innerWidth,
-    height: ((window.innerWidth - 200) * 9) / 16,
+
+  useEffect(() => {
+    const updatePlayerOpts = () => {
+      setPlayerOpts({
+        width: window.innerWidth,
+        height: ((window.innerWidth - 150) * 9) / 16,
+      });
+    };
+
+    window.addEventListener('resize', updatePlayerOpts);
+
+    return () => {
+      window.removeEventListener('resize', updatePlayerOpts);
+    };
+  }, []);
+
+  const scalingFactor = {
+    x: playerOpts.width / initialDimensions.width,
+    y: playerOpts.height / initialDimensions.height,
   };
 
   return (
@@ -65,6 +86,7 @@ function App() {
             opts={playerOpts}
             toggleDrawing={toggleDrawing}
             resetDrawingHandler={resetDrawingHandler}
+            scalingFactor={scalingFactor}
             />
         </div>
       )}
