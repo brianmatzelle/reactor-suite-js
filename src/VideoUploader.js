@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+// import { useDropzone } from 'react-dropzone';
 
+// Commented out code is for uploading a video file (drag and drop or click to upload)
 export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
   const [youtubeLink, setYoutubeLink] = useState('');
+  /*
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'video/*',
     onDrop: (acceptedFiles) => {
       onUpload(acceptedFiles[0]);
     },
   });
+  */
 
   const handleYoutubeLinkChange = (e) => {
     setYoutubeLink(e.target.value);
