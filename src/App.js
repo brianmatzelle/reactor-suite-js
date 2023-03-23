@@ -3,6 +3,7 @@ import { VideoUploader } from './VideoUploader';
 import { VideoPlayer } from './VideoPlayer';
 import { DrawingCanvas } from './DrawingCanvas';
 import { YoutubePlayer } from './YoutubePlayer';
+import './App.css';
 
 function App() {
   // State variables for video file, drawing mode, reset drawing, youtube link, initial dimensions and player options
@@ -16,6 +17,7 @@ function App() {
     height: ((window.innerWidth) * 9) / 16,
   });
   const [playerOpts, setPlayerOpts] = useState(initialDimensions);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Function to toggle drawing mode on/off
   const toggleDrawing = () => {
@@ -32,11 +34,16 @@ function App() {
     if (!containerRef.current) return;
 
     if (document.fullscreenElement) {
-      document.exitFullscreen();
+      document.exitFullscreen().then(() => {
+        setIsFullscreen(false);
+      });
     } else {
-      containerRef.current.requestFullscreen();
+      containerRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      });
     }
   };
+
 
   // Effect to update player options when window is resized
   useEffect(() => {
@@ -66,26 +73,28 @@ function App() {
       <VideoUploader onUpload={setVideoFile} onYoutubeLink={setYoutubeLink} />
       {(videoFile || youtubeLink) && (
         <div ref={containerRef} style={{ position: 'relative', width: playerOpts.width, height: playerOpts.height }}>
-          {/* Conditionally render VideoPlayer or YoutubePlayer based on the input */}
-          {videoFile ? (
-            <VideoPlayer
-              videoFile={videoFile}
-              drawingEnabled={drawingEnabled}
-              toggleDrawing={toggleDrawing}
-              resetDrawing={resetDrawingHandler}
-              toggleFullscreen={toggleFullscreen}
-              opts={playerOpts}
-            />
-          ) : (
-            <YoutubePlayer 
-              youtubeLink={youtubeLink} 
-              opts={playerOpts} 
-              drawingEnabled={drawingEnabled}
-              toggleDrawing={toggleDrawing}
-              resetDrawing={resetDrawingHandler}
-              toggleFullscreen={toggleFullscreen}
-            />
-          )}
+          <div className={`video-container${isFullscreen ? ' fullscreen-container' : ''}`} style={{ position: 'absolute' }}>
+            {/* Conditionally render VideoPlayer or YoutubePlayer based on the input */}
+            {videoFile ? (
+              <VideoPlayer
+                videoFile={videoFile}
+                drawingEnabled={drawingEnabled}
+                toggleDrawing={toggleDrawing}
+                resetDrawing={resetDrawingHandler}
+                toggleFullscreen={toggleFullscreen}
+                opts={playerOpts}
+              />
+            ) : (
+              <YoutubePlayer 
+                youtubeLink={youtubeLink} 
+                opts={playerOpts} 
+                drawingEnabled={drawingEnabled}
+                toggleDrawing={toggleDrawing}
+                resetDrawing={resetDrawingHandler}
+                toggleFullscreen={toggleFullscreen}
+              />
+            )}
+          </div>
           {/* Render DrawingCanvas component */}
           <DrawingCanvas 
             drawingEnabled={drawingEnabled} 
