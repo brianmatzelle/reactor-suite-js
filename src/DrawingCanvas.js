@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 
 export const DrawingCanvas = ({
@@ -44,15 +44,31 @@ export const DrawingCanvas = ({
   };
   
 
-  const manageLineHistory = (action) => {
+  const manageLineHistory = useCallback((action) => {
     if (action === 'undo' && lines.length > 0) {
       setUndoneLines([...undoneLines, lines.pop()]);
       setLines([...lines]);
     } else if (action === 'redo' && undoneLines.length > 0) {
       setLines([...lines, undoneLines.pop()]);
       setUndoneLines([...undoneLines]);
-    }
-  };
+    }}, [lines, undoneLines]);
+
+    useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (drawingEnabled) {
+          if (e.key === 'z') {
+            manageLineHistory('undo');
+          } else if (e.key === 'y') {
+            manageLineHistory('redo');
+          }
+        }
+      };
+  
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [drawingEnabled, manageLineHistory]);
 
   const colors = ['black', 'white', 'red', 'blue', 'green', 'yellow', 'blueviolet'];
   const colorButtons = colors.map((c) => (

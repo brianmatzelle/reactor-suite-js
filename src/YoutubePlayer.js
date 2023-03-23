@@ -52,10 +52,6 @@ export const YoutubePlayer = ({
         player.seekTo(player.getCurrentTime() + 5, true);
       } else if (e.code === 'ArrowLeft') {
         player.seekTo(player.getCurrentTime() - 5, true);
-      // } else if (e.code === 'ArrowUp') {
-      //   player.setVolume(player.getVolume() + 10);
-      // } else if (e.code === 'ArrowDown') {
-      //   player.setVolume(player.getVolume() - 10);
       } else if (e.code === 'ArrowDown') {
         player.seekTo(player.getCurrentTime() - 0.1, true); // Rewind by 100ms
       } else if (e.code === 'ArrowUp') {
