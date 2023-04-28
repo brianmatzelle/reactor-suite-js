@@ -1,4 +1,4 @@
-# DEMO http://brianmatzelle.com/
+# DEMO: [React Suite](http://brianmatzelle.com/)
 
 ## Available Scripts
 
