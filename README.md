@@ -1,5 +1,4 @@
-### DEMO
-http://brianmatzelle.com/
+# DEMO http://brianmatzelle.com/
 
 ## Available Scripts
 
