@@ -11,6 +11,7 @@ function App() {
   const [drawingEnabled, setDrawingEnabled] = useState(false);
   const [resetDrawing, setResetDrawing] = useState(false);
   const [youtubeLink, setYoutubeLink] = useState(null);
+  const [hoverGithub, setHoverGithub] = useState(false);
   const containerRef = useRef();
   const [initialDimensions] = useState({
     width: window.innerWidth,
@@ -76,6 +77,19 @@ function App() {
       flexDirection: 'column',
       alignItems: 'center',
       }}>
+        <a href='https://github.com/brianmatzelle/reactor-suite-js'
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            textDecoration: 'none',
+            color: hoverGithub ? '#FF0000' : '#fff',
+          }}
+          onMouseOver={() => setHoverGithub(true)}
+          onMouseLeave={() => setHoverGithub(false)}
+        >
+          GitHub
+          </a>
       {/* Render VideoUploader component to upload a video file or provide a YouTube link */}
       <VideoUploader onUpload={setVideoFile} onYoutubeLink={setYoutubeLink} />
       {(videoFile || youtubeLink) && (
