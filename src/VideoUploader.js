@@ -24,16 +24,21 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
   
   const [youtubeLink, setYoutubeLink] = useState('');
   const [hoverSubmit, setHoverSubmit] = useState(false);
-  const [clickSubmit, setClickSubmit] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
+  const [videoAdded, setVideoAdded] = useState(false);
   
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowCursor(!showCursor);
-    }, 1000);
+      if (videoAdded) {
+        setShowCursor(true);
+      }
+      else {
+        setShowCursor(!showCursor);
+      }
+    }, 700);
 
     return () => clearInterval(interval);
-  }, [showCursor]);
+  }, [showCursor, videoAdded]);
 
   
   return (
@@ -113,11 +118,8 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
         }}
         onMouseEnter={() => setHoverSubmit(true)}
         onMouseLeave={() => setHoverSubmit(false)}
-        onMouseDown={() => {
-          setClickSubmit(false);
-        }}
-        onMouseUp={() => {
-          setClickSubmit(true);
+        onMouseDown={() => {     
+          setVideoAdded(true);     
         }}
         >Draw!</button>
       </form>
