@@ -1,7 +1,7 @@
 {
   "name": "video-draw",
   "version": "0.1.0",
-  "homepage": "brianmatzelle.github.io/reactor-suite",
+  "homepage": "https://brianmatzelle.github.io/reactor-suite",
   "private": true,
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.11.6",
