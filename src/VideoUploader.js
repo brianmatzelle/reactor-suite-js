@@ -25,8 +25,44 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
     }
   };
 
+  const [hoverSubmit, setHoverSubmit] = useState(false);
+  const [clickSubmit, setClickSubmit] = useState(false);
+
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      width: '100vw',
+      height: '20vh',
+    }}>
+      <a href="https://matzelle.co/" style={{
+        marginBottom: '1rem',
+        marginLeft: '5rem',
+        textDecoration: 'none',
+      }}>
+        <span style={{
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+          color: '#FFFFFF',
+        }}>
+          Reactor
+          <span style={{
+            color: '#FF0000',
+          }}>
+            Suite
+          </span>
+        </span>
+        <span style={{
+          fontSize: '1rem',
+          color: '#FFFFFF',
+        }}>
+          &nbsp;_&nbsp;
+          a tool to help you annotate and analyze YouTube videos
+        </span>
+      </a>
+      
       {/* <div {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive
@@ -39,8 +75,38 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
           placeholder="Enter YouTube link"
           value={youtubeLink}
           onChange={handleYoutubeLinkChange}
+          style={{
+            width: '50vw',
+            fontSize: '1.3rem',
+            borderRadius: '0.5rem',
+            border: 'none',
+            outline: 'none',
+            padding: '0.5rem',
+            maxWidth: '500px',
+            marginLeft: '8rem',
+          }}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" style={{
+          width: '10vw',
+          fontSize: '1.3rem',
+          borderRadius: '0.5rem',
+          border: 'none',
+          outline: 'none',
+          padding: '0.5rem',
+          marginLeft: '1rem',
+          backgroundColor: hoverSubmit ? 'white' : '#FF0000',
+          color: hoverSubmit ? '#FF0000' : 'white',
+          cursor: 'pointer',
+        }}
+        onMouseEnter={() => setHoverSubmit(true)}
+        onMouseLeave={() => setHoverSubmit(false)}
+        onMouseDown={() => {
+          setClickSubmit(false);
+        }}
+        onMouseUp={() => {
+          setClickSubmit(true);
+        }}
+        >Draw!</button>
       </form>
     </div>
   );

@@ -68,7 +68,14 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{
+      backgroundColor: "#36454f",
+      width: '100vw',
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      }}>
       {/* Render VideoUploader component to upload a video file or provide a YouTube link */}
       <VideoUploader onUpload={setVideoFile} onYoutubeLink={setYoutubeLink} />
       {(videoFile || youtubeLink) && (
