@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useDropzone } from 'react-dropzone';
 
 // Commented out code is for uploading a video file (drag and drop or click to upload)
 export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
-  const [youtubeLink, setYoutubeLink] = useState('');
   /*
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'video/*',
@@ -12,11 +11,9 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
     },
   });
   */
-
-  const handleYoutubeLinkChange = (e) => {
-    setYoutubeLink(e.target.value);
+ const handleYoutubeLinkChange = (e) => {
+   setYoutubeLink(e.target.value);
   };
-
   const handleYoutubeLinkSubmit = (e) => {
     e.preventDefault();
     if (youtubeLink) {
@@ -24,10 +21,21 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
       setYoutubeLink('');
     }
   };
-
+  
+  const [youtubeLink, setYoutubeLink] = useState('');
   const [hoverSubmit, setHoverSubmit] = useState(false);
   const [clickSubmit, setClickSubmit] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCursor(!showCursor);
+    }, 1000);
 
+    return () => clearInterval(interval);
+  }, [showCursor]);
+
+  
   return (
     <div style={{
       display: 'flex',
@@ -59,7 +67,11 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
           fontSize: '1rem',
           color: '#FFFFFF',
         }}>
-          &nbsp;_&nbsp;
+          {/* make the _ flashing similar to a cursor */}
+          &nbsp;
+          {showCursor && '_'}
+          {!showCursor && <span>&nbsp;&nbsp;</span>}
+          &nbsp;
           a tool to help you annotate and analyze YouTube videos
         </span>
       </a>
