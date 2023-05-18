@@ -36,6 +36,7 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
       justifyContent: 'center',
       width: '100vw',
       height: '20vh',
+      paddingTop: '3rem',
     }}>
       <a href="https://matzelle.co/" style={{
         marginBottom: '1rem',
