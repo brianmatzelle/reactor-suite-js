@@ -55,6 +55,11 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
         marginBottom: '1rem',
         marginLeft: '5rem',
         textDecoration: 'none',
+        width: '100vw',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
       }}>
         <span style={{
           fontSize: '2.5rem',
@@ -68,15 +73,24 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
             Suite
           </span>
         </span>
-        <span style={{
+        <div style={{
           fontSize: '1rem',
           color: '#FFFFFF',
+          width: '20px',
+          // backgroundColor: '#FF0000',
+          paddingBottom: '0.5rem',
         }}>
           {/* make the _ flashing similar to a cursor */}
           &nbsp;
           {showCursor && '_'}
-          {!showCursor && <span>&nbsp;&nbsp;</span>}
+          {/* {!showCursor && <span>&nbsp;&nbsp;</span>} */}
           &nbsp;
+        </div>
+        <span style={{
+          fontSize: '1rem',
+          color: '#FFFFFF',
+          paddingBottom: '0.4rem',
+        }}>
           a tool to help you annotate and analyze YouTube videos
         </span>
       </a>
