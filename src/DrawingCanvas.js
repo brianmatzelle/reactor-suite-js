@@ -65,7 +65,7 @@ export const DrawingCanvas = ({
       if (drawingEnabled) {
         if (e.key === 'z') {
           manageLineHistory('undo');
-        } else if (e.key === 'y') {
+        } else if (e.key === 'r') {
           manageLineHistory('redo');
         }
       }

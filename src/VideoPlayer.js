@@ -50,6 +50,10 @@ export const VideoPlayer = ({
       } else if (e.code === 'KeyL') {
         videoRef.current.currentTime += 0.1; // Fast-forward by 100ms
       }
+      // else if the user presses "escape" while in fullscreen mode, exit fullscreen mode
+      else if (e.code === 'Escape' && document.fullscreenElement) {
+        toggleFullscreen();
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);

@@ -3,7 +3,6 @@ import { VideoUploader } from './VideoUploader';
 import { VideoPlayer } from './VideoPlayer';
 import { DrawingCanvas } from './DrawingCanvas';
 import { YoutubePlayer } from './YoutubePlayer';
-// import {RemoveScroll} from 'react-remove-scroll';
 import './App.css';
 
 function App() {
@@ -78,7 +77,6 @@ function App() {
       flexDirection: 'column',
       alignItems: 'center',
       }}>
-        {/* <RemoveScroll></RemoveScroll> */}
         <a href='https://github.com/brianmatzelle/reactor-suite-js'
           style={{
             position: 'absolute',
