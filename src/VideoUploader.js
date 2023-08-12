@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 // import { useDropzone } from 'react-dropzone';
-import { AwesomeButton } from 'react-awesome-button';
-import AwesomeButtonStyles from 'react-awesome-button/src/styles/styles.scss';
 
 // Commented out code is for uploading a video file (drag and drop or click to upload)
 export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
