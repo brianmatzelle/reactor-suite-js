@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/reactor-suite-js/static/css/main.81b0f900.css",
-    "main.js": "/reactor-suite-js/static/js/main.efb0cf3c.js",
+    "main.css": "/reactor-suite-js/static/css/main.429f6806.css",
+    "main.js": "/reactor-suite-js/static/js/main.01e14147.js",
     "static/js/787.9aa7b35b.chunk.js": "/reactor-suite-js/static/js/787.9aa7b35b.chunk.js",
     "index.html": "/reactor-suite-js/index.html",
-    "main.81b0f900.css.map": "/reactor-suite-js/static/css/main.81b0f900.css.map",
-    "main.efb0cf3c.js.map": "/reactor-suite-js/static/js/main.efb0cf3c.js.map",
+    "main.429f6806.css.map": "/reactor-suite-js/static/css/main.429f6806.css.map",
+    "main.01e14147.js.map": "/reactor-suite-js/static/js/main.01e14147.js.map",
     "787.9aa7b35b.chunk.js.map": "/reactor-suite-js/static/js/787.9aa7b35b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.81b0f900.css",
-    "static/js/main.efb0cf3c.js"
+    "static/css/main.429f6806.css",
+    "static/js/main.01e14147.js"
   ]
 }
