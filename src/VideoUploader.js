@@ -57,7 +57,6 @@ export const VideoUploader = ({ onUpload, onYoutubeLink }) => {
         marginBottom: '1rem',
         marginLeft: '5rem',
         textDecoration: 'none',
-        width: '100vw',
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
