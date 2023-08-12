@@ -5,3 +5,18 @@
   width: 100%;
   height: 100%;
 }
+
+/* For webkit browsers (e.g., Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For Internet Explorer and Edge */
+body::-ms-overflow-style {
+  display: none;
+}
