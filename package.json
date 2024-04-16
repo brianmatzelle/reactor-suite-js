@@ -4,6 +4,7 @@
   "homepage": "https://brianmatzelle.github.io/reactor-suite-js",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@ffmpeg/ffmpeg": "^0.11.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
