@@ -1,7 +1,6 @@
 {
   "name": "video-draw",
   "version": "0.1.0",
-  "homepage": "https://brianmatzelle.github.io/reactor-suite-js",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
