@@ -1,1 +1,1 @@
-# DEMO: [React Suite](https://brianmatzelle.github.io/reactor-suite-js/)
+# DEMO: [React Suite](https://suite.matzelle.co/)
